@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping ("/api/polls")
+@CrossOrigin(origins = "http://localhost:4200/" )
 public class PollController {
     private final PollService pollService;
 
@@ -18,9 +19,11 @@ public class PollController {
     }
 
     @PostMapping
-    public Poll createPoll (@RequestBody Poll poll) {
-        return pollService.createPoll(poll);
+    public ResponseEntity<Poll> createPoll(@RequestBody Poll poll) {
+        Poll createdPoll = pollService.createPoll(poll);
+        return ResponseEntity.ok(createdPoll);
     }
+
 
     @GetMapping
     public List<Poll> getAllPolls() {
